@@ -6,6 +6,16 @@
     <title>List of Books</title>
 </head>
 <body>
+    <div style="text-align: right; margin-bottom: 20px;">
+        {% if user.is_authenticated %}
+            <span>Hello, {{ user.username }}!</span>
+            <a href="{% url 'logout' %}" style="margin-left: 10px;">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}" style="margin-left: 10px;">Register</a>
+        {% endif %}
+    </div>
+    
     <h1>Books Available:</h1>
     <ul>
         {% for book in books %}

@@ -6,6 +6,20 @@
     <title>Library Detail</title>
 </head>
 <body>
+    <div style="text-align: right; margin-bottom: 20px;">
+        {% if user.is_authenticated %}
+            <span>Hello, {{ user.username }}!</span>
+            <a href="{% url 'logout' %}" style="margin-left: 10px;">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}" style="margin-left: 10px;">Register</a>
+        {% endif %}
+    </div>
+    
+    <nav style="margin-bottom: 20px;">
+        <a href="{% url 'list_books' %}">← Back to Books List</a>
+    </nav>
+    
     <h1>Library: {{ library.name }}</h1>
     <h2>Books in Library:</h2>
     <ul>
