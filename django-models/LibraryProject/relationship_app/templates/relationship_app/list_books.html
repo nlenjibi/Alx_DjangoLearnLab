@@ -9,6 +9,13 @@
     <div style="text-align: right; margin-bottom: 20px;">
         {% if user.is_authenticated %}
             <span>Hello, {{ user.username }}!</span>
+            {% if user.userprofile.role == 'Admin' %}
+                <a href="{% url 'admin_view' %}" style="margin-left: 10px;">Admin Dashboard</a>
+            {% elif user.userprofile.role == 'Librarian' %}
+                <a href="{% url 'librarian_view' %}" style="margin-left: 10px;">Librarian Dashboard</a>
+            {% elif user.userprofile.role == 'Member' %}
+                <a href="{% url 'member_view' %}" style="margin-left: 10px;">Member Dashboard</a>
+            {% endif %}
             <a href="{% url 'logout' %}" style="margin-left: 10px;">Logout</a>
         {% else %}
             <a href="{% url 'login' %}">Login</a>

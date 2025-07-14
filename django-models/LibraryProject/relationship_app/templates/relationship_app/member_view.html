@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #007bff; color: white; padding: 15px; margin-bottom: 20px; }
+        .content { background-color: #f8f9fa; padding: 20px; border-radius: 5px; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { margin-right: 15px; text-decoration: none; color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Member Dashboard</h1>
+        <p>Welcome, {{ user.username }}! You are a library member.</p>
+    </div>
+    
+    <div class="nav-links">
+        <a href="{% url 'list_books' %}">Browse Books</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    
+    <div class="content">
+        <h2>Member Services</h2>
+        <p>As a Member, you can:</p>
+        <ul>
+            <li>Browse the book catalog</li>
+            <li>Check out books</li>
+            <li>View your reading history</li>
+            <li>Reserve books</li>
+            <li>Participate in library events</li>
+        </ul>
+        
+        <h3>Quick Links</h3>
+        <p>• <a href="{% url 'list_books' %}">Browse available books</a></p>
+        <p>• View your current loans</p>
+        <p>• Check library events calendar</p>
+        <p>• Update your profile</p>
+    </div>
+</body>
+</html>
