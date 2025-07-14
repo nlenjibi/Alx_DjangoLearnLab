@@ -4,6 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>List of Books</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .book-item { background-color: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; border: 1px solid #dee2e6; }
+        .book-actions { margin-top: 10px; }
+        .btn { padding: 5px 10px; margin-right: 5px; text-decoration: none; border-radius: 3px; font-size: 12px; }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-success { background-color: #28a745; color: white; }
+        .btn-danger { background-color: #dc3545; color: white; }
+        .add-book-btn { background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-bottom: 20px; display: inline-block; }
+    </style>
 </head>
 <body>
     <div style="text-align: right; margin-bottom: 20px;">
@@ -24,10 +34,28 @@
     </div>
     
     <h1>Books Available:</h1>
-    <ul>
-        {% for book in books %}
-        <li>{{ book.title }} by {{ book.author.name }}</li>
-        {% endfor %}
-    </ul>
+    
+    {% if perms.relationship_app.can_add_book %}
+        <a href="{% url 'add_book' %}" class="add-book-btn">+ Add New Book</a>
+    {% endif %}
+    
+    {% for book in books %}
+        <div class="book-item">
+            <h3>{{ book.title }}</h3>
+            <p><strong>Author:</strong> {{ book.author.name }}</p>
+            <p><strong>Published:</strong> {{ book.publication_year }}</p>
+            
+            <div class="book-actions">
+                {% if perms.relationship_app.can_change_book %}
+                    <a href="{% url 'edit_book' book.id %}" class="btn btn-primary">Edit</a>
+                {% endif %}
+                {% if perms.relationship_app.can_delete_book %}
+                    <a href="{% url 'delete_book' book.id %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p>No books available.</p>
+    {% endfor %}
 </body>
 </html>
