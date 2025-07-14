@@ -4,7 +4,6 @@ from django.views.generic.detail import DetailView
 from .models import Library
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView, LogoutView
 
 # Function-based view to list all books
 def list_books(request):
@@ -28,15 +27,3 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
-
-# Custom Login View
-class CustomLoginView(LoginView):
-    template_name = 'registration/login.html'
-    redirect_authenticated_user = True
-    
-    def get_success_url(self):
-        return '/books/'  # Redirect to books list after login
-
-# Custom Logout View
-class CustomLogoutView(LogoutView):
-    template_name = 'registration/logout.html'
