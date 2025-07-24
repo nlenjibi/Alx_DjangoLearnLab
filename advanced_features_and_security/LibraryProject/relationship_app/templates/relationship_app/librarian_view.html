@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Librarian Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #28a745; color: white; padding: 15px; margin-bottom: 20px; }
+        .content { background-color: #f8f9fa; padding: 20px; border-radius: 5px; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { margin-right: 15px; text-decoration: none; color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Librarian Dashboard</h1>
+        <p>Welcome, {{ user.username }}! You have Librarian privileges.</p>
+    </div>
+    
+    <div class="nav-links">
+        <a href="{% url 'list_books' %}">View Books</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    
+    <div class="content">
+        <h2>Librarian Tools</h2>
+        <p>As a Librarian, you can:</p>
+        <ul>
+            <li>Manage book inventory</li>
+            <li>Process book checkouts and returns</li>
+            <li>Help members find books</li>
+            <li>Manage library events and programs</li>
+            <li>Generate library usage reports</li>
+        </ul>
+        
+        <h3>Daily Tasks</h3>
+        <p>• Check in/out books for members</p>
+        <p>• Update book catalog</p>
+        <p>• Assist library visitors</p>
+        <p>• Maintain library records</p>
+    </div>
+</body>
+</html>

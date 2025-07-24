@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background-color: #dc3545; color: white; padding: 15px; margin-bottom: 20px; }
+        .content { background-color: #f8f9fa; padding: 20px; border-radius: 5px; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { margin-right: 15px; text-decoration: none; color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome, {{ user.username }}! You have Admin privileges.</p>
+    </div>
+    
+    <div class="nav-links">
+        <a href="{% url 'list_books' %}">View Books</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    
+    <div class="content">
+        <h2>Admin Controls</h2>
+        <p>As an Admin, you have full access to:</p>
+        <ul>
+            <li>Manage all users and their roles</li>
+            <li>Add, edit, and delete books</li>
+            <li>Manage libraries and librarians</li>
+            <li>View system reports and analytics</li>
+            <li>Configure system settings</li>
+        </ul>
+        
+        <h3>Quick Actions</h3>
+        <p>• Manage user accounts and permissions</p>
+        <p>• Oversee library operations</p>
+        <p>• Generate administrative reports</p>
+    </div>
+</body>
+</html>
