@@ -1,0 +1,148 @@
+{% extends 'bookshelf/base.html' %}
+
+{% block title %}My Permissions - Bookshelf{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3>User Permissions for {{ user.username }}</h3>
+            </div>
+            <div class="card-body">
+                <h5>Bookshelf App Permissions:</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Permission</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>can_view</td>
+                            <td>
+                                {% if has_view %}
+                                    <span class="badge bg-success">Granted</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Denied</span>
+                                {% endif %}
+                            </td>
+                            <td>View books and book details</td>
+                        </tr>
+                        <tr>
+                            <td>can_create</td>
+                            <td>
+                                {% if has_create %}
+                                    <span class="badge bg-success">Granted</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Denied</span>
+                                {% endif %}
+                            </td>
+                            <td>Create new books</td>
+                        </tr>
+                        <tr>
+                            <td>can_edit</td>
+                            <td>
+                                {% if has_edit %}
+                                    <span class="badge bg-success">Granted</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Denied</span>
+                                {% endif %}
+                            </td>
+                            <td>Edit existing books</td>
+                        </tr>
+                        <tr>
+                            <td>can_delete</td>
+                            <td>
+                                {% if has_delete %}
+                                    <span class="badge bg-success">Granted</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Denied</span>
+                                {% endif %}
+                            </td>
+                            <td>Delete books</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h5 class="mt-4">User Groups:</h5>
+                {% if user_groups %}
+                    <ul class="list-group">
+                        {% for group in user_groups %}
+                            <li class="list-group-item">
+                                <strong>{{ group.name }}</strong>
+                                <small class="text-muted">- {{ group.permissions.count }} permission(s)</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="alert alert-warning">
+                        You are not assigned to any groups.
+                    </div>
+                {% endif %}
+                
+                <h5 class="mt-4">All User Permissions:</h5>
+                {% if user_permissions %}
+                    <div class="row">
+                        {% for permission in user_permissions %}
+                            <div class="col-md-6">
+                                <span class="badge bg-info">{{ permission }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        No specific permissions assigned.
+                    </div>
+                {% endif %}
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'bookshelf:book_list' %}" class="btn btn-primary">Back to Books</a>
+                {% if user.is_staff %}
+                    <a href="/admin/" class="btn btn-secondary">Admin Panel</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6>Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    {% if has_view %}
+                        <li><a href="{% url 'bookshelf:book_list' %}" class="btn btn-sm btn-outline-primary w-100 mb-2">View Books</a></li>
+                    {% endif %}
+                    
+                    {% if has_create %}
+                        <li><a href="{% url 'bookshelf:book_create' %}" class="btn btn-sm btn-outline-success w-100 mb-2">Create Book</a></li>
+                    {% endif %}
+                </ul>
+                
+                {% if not has_view and not has_create and not has_edit and not has_delete %}
+                    <div class="alert alert-warning">
+                        <small>You don't have any bookshelf permissions. Contact an administrator to get access.</small>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6>Permission Levels</h6>
+            </div>
+            <div class="card-body">
+                <small>
+                    <strong>Viewers:</strong> Can view books<br>
+                    <strong>Editors:</strong> Can view, create, and edit books<br>
+                    <strong>Admins:</strong> Full access to all operations
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

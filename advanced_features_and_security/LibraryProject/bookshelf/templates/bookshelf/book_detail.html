@@ -1,0 +1,59 @@
+{% extends 'bookshelf/base.html' %}
+
+{% block title %}{{ book.title }} - Bookshelf{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2>{{ book.title }}</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Author:</strong> {{ book.author }}</p>
+                <p><strong>Publication Year:</strong> {{ book.publication_year }}</p>
+            </div>
+            <div class="card-footer">
+                <div class="btn-group" role="group">
+                    <a href="{% url 'bookshelf:book_list' %}" class="btn btn-secondary">Back to List</a>
+                    
+                    {% if user.has_perm:'bookshelf.can_edit' %}
+                        <a href="{% url 'bookshelf:book_edit' book.pk %}" class="btn btn-primary">Edit</a>
+                    {% endif %}
+                    
+                    {% if user.has_perm:'bookshelf.can_delete' %}
+                        <a href="{% url 'bookshelf:book_delete' book.pk %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6>Available Actions</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    {% if user.has_perm:'bookshelf.can_view' %}
+                        <li><span class="badge bg-success">✓</span> You can view this book</li>
+                    {% endif %}
+                    
+                    {% if user.has_perm:'bookshelf.can_edit' %}
+                        <li><span class="badge bg-success">✓</span> You can edit this book</li>
+                    {% else %}
+                        <li><span class="badge bg-secondary">✗</span> You cannot edit this book</li>
+                    {% endif %}
+                    
+                    {% if user.has_perm:'bookshelf.can_delete' %}
+                        <li><span class="badge bg-success">✓</span> You can delete this book</li>
+                    {% else %}
+                        <li><span class="badge bg-secondary">✗</span> You cannot delete this book</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
