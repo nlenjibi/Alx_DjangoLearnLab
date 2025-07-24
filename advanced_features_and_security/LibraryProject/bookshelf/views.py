@@ -11,7 +11,7 @@ import logging
 import re
 
 from .models import Book
-from .forms import BookForm
+from .forms import BookForm, ExampleForm
 
 # Set up security logging
 logger = logging.getLogger('django.security')
