@@ -12,15 +12,43 @@
     {% endif %}
 </div>
 
+<!-- Secure Search Form with CSRF Protection -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form method="post" class="d-flex" novalidate>
+            {% csrf_token %}
+            <input type="text" 
+                   class="form-control me-2" 
+                   name="search" 
+                   placeholder="Search books by title or author..." 
+                   value="{{ search_query|default:'' }}"
+                   maxlength="100"
+                   pattern="[a-zA-Z0-9\s\-\.\,\:\;\!\?\(\)\'\"]*"
+                   title="Use only letters, numbers, and basic punctuation">
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+            {% if search_query %}
+                <a href="{% url 'bookshelf:book_list' %}" class="btn btn-outline-secondary ms-2">Clear</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+{% if search_query %}
+    <div class="alert alert-info">
+        <strong>Search Results for:</strong> "{{ search_query|escape }}"
+        <small class="text-muted">({{ books|length }} result{{ books|length|pluralize }})</small>
+    </div>
+{% endif %}
+
 {% if books %}
     <div class="row">
         {% for book in books %}
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title">{{ book.title }}</h5>
+                        <h5 class="card-title">{{ book.title|escape }}</h5>
                         <p class="card-text">
-                            <strong>Author:</strong> {{ book.author }}<br>
+                            <strong>Author:</strong> {{ book.author|escape }}<br>
                             <strong>Year:</strong> {{ book.publication_year }}
                         </p>
                     </div>
@@ -45,9 +73,15 @@
     </div>
 {% else %}
     <div class="alert alert-info">
-        <h4>No books available</h4>
-        <p>There are currently no books in the library.</p>
-        {% if user.has_perm:'bookshelf.can_create' %}
+        <h4>{% if search_query %}No books found{% else %}No books available{% endif %}</h4>
+        <p>
+            {% if search_query %}
+                No books match your search criteria. Try a different search term.
+            {% else %}
+                There are currently no books in the library.
+            {% endif %}
+        </p>
+        {% if user.has_perm:'bookshelf.can_create' and not search_query %}
             <a href="{% url 'bookshelf:book_create' %}" class="btn btn-primary">Add the first book</a>
         {% endif %}
     </div>
@@ -61,5 +95,14 @@
         <li><span class="badge {% if user.has_perm:'bookshelf.can_edit' %}bg-success{% else %}bg-secondary{% endif %}">Edit Books</span></li>
         <li><span class="badge {% if user.has_perm:'bookshelf.can_delete' %}bg-success{% else %}bg-secondary{% endif %}">Delete Books</span></li>
     </ul>
+</div>
+
+<!-- Security Notice -->
+<div class="mt-4">
+    <small class="text-muted">
+        <i class="fas fa-shield-alt"></i> 
+        This application implements comprehensive security measures including CSRF protection, 
+        input validation, XSS prevention, and access control.
+    </small>
 </div>
 {% endblock %}

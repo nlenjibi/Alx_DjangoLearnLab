@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from .models import Book, CustomUser
 
 # Custom admin configuration for CustomUser
+@admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     """
     Admin interface for CustomUser model with additional fields.
@@ -34,11 +35,11 @@ class CustomUserAdmin(UserAdmin):
     )
 
 # Custom admin configuration for Book model
+@admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'publication_year')     # Show these fields in list view
     list_filter = ('publication_year',)                        # Filter sidebar by publication year
     search_fields = ('title', 'author')                        # Search bar for title and author
 
-# Explicit registration (alternative to decorators)
-admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Book, BookAdmin)
+# Alternative explicit registration (both methods work)
+# admin.site.register(CustomUser, CustomUserAdmin)
