@@ -150,64 +150,20 @@ SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent browsers from MIME-sniffing conten
 X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking attacks
 
 # HTTPS Security (Enable in production)
-import os
+# SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS
+# SECURE_HSTS_SECONDS = 31536000  # HTTP Strict Transport Security (1 year)
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
 
-# Environment-based HTTPS settings
-USE_HTTPS = os.environ.get('USE_HTTPS', 'False').lower() == 'true'
-
-if USE_HTTPS or not DEBUG:
-    # Force HTTPS for all requests
-    SECURE_SSL_REDIRECT = True
-    
-    # HTTP Strict Transport Security (HSTS)
-    # Instructs browsers to only access the site via HTTPS for the specified time
-    SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds (31,536,000)
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
-    SECURE_HSTS_PRELOAD = True  # Allow inclusion in browser HSTS preload lists
-    
-    # Secure Cookie Settings - HTTPS only
-    CSRF_COOKIE_SECURE = True  # CSRF cookies only transmitted over HTTPS
-    SESSION_COOKIE_SECURE = True  # Session cookies only transmitted over HTTPS
-    
-    # Proxy/Load Balancer HTTPS Header Support
-    # Configure this if using a reverse proxy (like nginx) or load balancer
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    
-    print("🔒 HTTPS Security: ENABLED - All HTTP requests will be redirected to HTTPS")
-    
-else:
-    # Development settings (HTTP allowed for local development)
-    SECURE_SSL_REDIRECT = False
-    SECURE_HSTS_SECONDS = 0
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
-    SECURE_HSTS_PRELOAD = False
-    CSRF_COOKIE_SECURE = False
-    SESSION_COOKIE_SECURE = False
-    
-    print("⚠️  HTTPS Security: DISABLED - Development mode (set USE_HTTPS=true for production)")
-
-# URLs exempt from HTTPS redirect (empty list for maximum security)
-SECURE_REDIRECT_EXEMPT = []
-
-# Enhanced Cookie Security Configuration
-# =============================================================================
-
-# CSRF Cookie Configuration
+# Cookie Security
+CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
 CSRF_COOKIE_HTTPONLY = True  # Prevent JavaScript access to CSRF cookies
-CSRF_COOKIE_SAMESITE = 'Strict'  # Strict SameSite policy prevents CSRF attacks
-CSRF_COOKIE_NAME = 'csrftoken'  # Standard CSRF cookie name
-CSRF_COOKIE_AGE = 31449600  # 1 year (matches Django default)
-CSRF_USE_SESSIONS = False  # Use cookies instead of sessions for CSRF tokens
-CSRF_COOKIE_DOMAIN = None  # Use default domain handling
+CSRF_COOKIE_SAMESITE = 'Strict'  # CSRF cookie SameSite attribute
 
-# Session Cookie Configuration
+SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
 SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access to session cookies
-SESSION_COOKIE_SAMESITE = 'Strict'  # Strict SameSite policy for sessions
-SESSION_COOKIE_NAME = 'sessionid'  # Standard session cookie name
-SESSION_COOKIE_AGE = 3600  # Session timeout: 1 hour (3600 seconds)
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # End session when browser closes
-SESSION_SAVE_EVERY_REQUEST = True  # Update session expiry on every request
-SESSION_COOKIE_DOMAIN = None  # Use default domain handling
+SESSION_COOKIE_SAMESITE = 'Strict'  # Session cookie SameSite attribute
+SESSION_COOKIE_AGE = 3600  # Session timeout (1 hour)
 
 # Additional Security Headers
 SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
