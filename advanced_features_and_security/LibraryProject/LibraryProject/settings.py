@@ -154,6 +154,7 @@ X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking attacks
 # SECURE_HSTS_SECONDS = 31536000  # HTTP Strict Transport Security (1 year)
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # SECURE_HSTS_PRELOAD = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # For proxy SSL handling
 
 # Cookie Security
 CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
