@@ -8,9 +8,13 @@ urlpatterns = [
     path('books/<int:pk>/', BookDetailView.as_view(), name='book-detail'),
     # Create a new book
     path('books/create/', BookCreateView.as_view(), name='book-create'),
-    # Update an existing book
+    # Update books (bulk or custom endpoint)
+    path('books/update/', BookUpdateView.as_view(), name='books-update'),
+    # Delete books (bulk or custom endpoint)
+    path('books/delete/', BookDeleteView.as_view(), name='books-delete'),
+    # Update an existing book (PUT/PATCH)
     path('books/<int:pk>/update/', BookUpdateView.as_view(), name='book-update'),
-    # Delete a book
+    # Delete a book (DELETE)
     path('books/<int:pk>/delete/', BookDeleteView.as_view(), name='book-delete'),
 ]
 
