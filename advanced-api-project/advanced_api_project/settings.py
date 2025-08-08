@@ -37,9 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
+    'api',
+    'rest_framework',
+    'rest_framework.authtoken',  # Add token authentication
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE = [    
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -74,7 +79,7 @@ WSGI_APPLICATION = 'advanced_api_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # Using SQLite for simplicity
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
