@@ -17,6 +17,7 @@ django-cors-headers = "~=4.6.0"
 drf-spectacular = "~=0.28.0"
 redis = "~=5.2.0"
 django-redis = "~=5.4.0"
+inflection = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=4.4.0"
