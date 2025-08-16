@@ -19,6 +19,8 @@ redis = "~=5.2.0"
 django-redis = "~=5.4.0"
 inflection = "*"
 mysqlclient = "*"
+pymysql = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=4.4.0"
