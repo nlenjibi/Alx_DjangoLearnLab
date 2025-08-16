@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_blog',         # your database name
-        'USER': 'root',                # or your created user
-        'PASSWORD': '',                # your password (empty for default root)
+        'USER': 'admin',                # or your created user
+        'PASSWORD': 'root',                # your password (empty for default root)
         'HOST': '127.0.0.1',           # or 'localhost'
         'PORT': '3306',
     }
