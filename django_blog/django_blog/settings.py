@@ -124,10 +124,11 @@ USE_TZ = True
 
 # settings.py
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'blog'),
-# ]
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'blog'),
+]
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [BASE_DIR / 'blog' / 'static']
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
