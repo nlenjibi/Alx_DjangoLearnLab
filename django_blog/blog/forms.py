@@ -3,24 +3,41 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
-from .models import Post
+
 
 from .models import Comment
+from django import forms
+from taggit.forms import TagWidget  # Import the TagWidget from taggit
+from .models import Post
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['content']
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
-        
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter post title'
+            }),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter post content',
+                'rows': 10
+            }),
+            'tags': TagWidget(attrs={
+                'class': 'form-control',
+                'placeholder': 'Add tags separated by commas',
+                'data-role': 'tagsinput'  # Optional: for Bootstrap Tags Input
+            })
+        }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update({'class': 'form-control'})
-        self.fields['content'].widget.attrs.update({'class': 'form-control'})
-        self.fields['tags'].widget.attrs.update({'class': 'form-control'})
+        # You can add additional initialization here if needed
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
