@@ -3,11 +3,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
-
-
-from .models import Comment
 from django import forms
-from taggit.forms import TagWidget  # Import the TagWidget from taggit
+from taggit.forms import TagWidget  # Import TagWidget from taggit
 from .models import Post
 
 class PostForm(forms.ModelForm):
@@ -24,10 +21,9 @@ class PostForm(forms.ModelForm):
                 'placeholder': 'Enter post content',
                 'rows': 10
             }),
-            'tags': TagWidget(attrs={
+            'tags': TagWidget(attrs={  # Using TagWidget here
                 'class': 'form-control',
-                'placeholder': 'Add tags separated by commas',
-                'data-role': 'tagsinput'  # Optional: for Bootstrap Tags Input
+                'placeholder': 'Add tags separated by commas'
             })
         }
 
