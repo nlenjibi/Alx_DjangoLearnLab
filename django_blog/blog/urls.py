@@ -1,4 +1,5 @@
-# blog/urls.py
+from .views import CommentCreateView, CommentUpdateView, CommentDeleteView
+
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
@@ -16,8 +17,12 @@ urlpatterns = [
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),  # Added for prompt
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-edit'),  # Added for prompt
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),  # Added for prompt
-    # The previous plural 'posts/' routes can be kept for compatibility if needed
+     path('post/<int:post_id>/comments/new/', CommentCreateView.as_view(), name='comment-add'),
+    path('comments/<int:pk>/edit/', CommentUpdateView.as_view(), name='comment-edit'),
+    path('comments/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment-delete'),# The previous plural 'posts/' routes can be kept for compatibility if needed
 ]
+
+
 
 
 
