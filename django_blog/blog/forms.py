@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 from django import forms
 from taggit.forms import TagWidget  # Import TagWidget from taggit
-from .models import Post
+from .models import Post, Comment, Profile
 
 class PostForm(forms.ModelForm):
     class Meta:
