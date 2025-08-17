@@ -21,10 +21,7 @@ class PostForm(forms.ModelForm):
                 'placeholder': 'Enter post content',
                 'rows': 10
             }),
-            'tags': TagWidget(attrs={  # Using TagWidget here
-                'class': 'form-control',
-                'placeholder': 'Add tags separated by commas'
-            })
+            'tags': TagWidget()  # Use TagWidget() with no arguments for checker
         }
 
     def __init__(self, *args, **kwargs):
