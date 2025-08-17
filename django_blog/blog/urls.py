@@ -18,7 +18,7 @@ urlpatterns = [
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-edit'),  # Added for prompt
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),  # Added for prompt
      path('post/<int:post_id>/comments/new/', CommentCreateView.as_view(), name='comment-add'),
-    path('comments/<int:pk>/edit/', CommentUpdateView.as_view(), name='comment-edit'),
+    path('comments/<int:pk>/update/', CommentUpdateView.as_view(), name='comment-update'),
     path('comments/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment-delete'),# The previous plural 'posts/' routes can be kept for compatibility if needed
 ]
 
