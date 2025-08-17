@@ -21,6 +21,7 @@ inflection = "*"
 mysqlclient = "*"
 pymysql = "*"
 django-debug-toolbar = "*"
+django-taggit = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=4.4.0"

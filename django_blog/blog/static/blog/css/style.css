@@ -83,3 +83,57 @@
     flex-direction: column;
     gap: 1.5rem;
 }
+/* static/blog/css/style.css */
+/* ... existing styles ... */
+
+/* Tag styles */
+.tags {
+    margin: 1rem 0;
+}
+
+.tag {
+    display: inline-block;
+    background: #e0e0e0;
+    color: #333;
+    padding: 0.3rem 0.6rem;
+    margin-right: 0.5rem;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.tag:hover {
+    background: #d0d0d0;
+}
+
+/* Search form styles */
+.search-form {
+    margin: 1rem 0;
+    display: flex;
+}
+
+.search-form input[type="text"] {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    flex-grow: 1;
+}
+
+.search-form button {
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background: #0056b3;
+}
+
+.search-results .post {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}

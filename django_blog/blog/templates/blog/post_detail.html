@@ -2,6 +2,19 @@
 {% block content %}
 <h2>{{ object.title }}</h2>
 <p>{{ object.content }}</p>
+<!-- templates/blog/post_detail.html -->
+
+
+
+<article class="post-detail">
+    <!-- ... existing content ... -->
+    <div class="tags">
+        {% for tag in post.tags.all %}
+            <a href="{% url 'posts_by_tag' tag.slug %}" class="tag">{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+</article>
+
 <h3>Comments</h3>
 <ul>
   {% for comment in object.comments.all %}

@@ -21,6 +21,10 @@
                 {% endif %}
             </ul>
         </nav>
+         <form class="search-form" action="{% url 'post_search' %}" method="get">
+        <input type="text" name="q" placeholder="Search posts...">
+        <button type="submit">Search</button>
+    </form>
     </header>
     
     <main>
