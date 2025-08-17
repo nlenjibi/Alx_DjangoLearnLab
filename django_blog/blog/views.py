@@ -49,7 +49,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         post = self.get_object()
         return self.request.user == post.author
 def home(request):
-    return render(request, 'home.html', {})
+    return render(request, 'blog/home.html', {})
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -64,7 +64,7 @@ def register_view(request):
                     messages.error(request, f"{field}: {error}")
     else:
         form = RegisterForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'blog/register.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':
@@ -108,4 +108,4 @@ def profile_view(request):
         messages.success(request, 'Profile updated successfully.')
         return redirect('profile')
     
-    return render(request, 'profile.html', {'user': request.user})
+    return render(request, 'blog/profile.html', {'user': request.user})
